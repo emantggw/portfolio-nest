@@ -1,0 +1,32 @@
+	Portfolio
+========================
+
+# User: 
+	email,
+	password
+
+# Resume:
+	userId
+     	firstName
+	lastName
+	headerTitle
+	address
+	email
+	phoneNos
+	summary
+	favoriteQuote
+	socialMediaLinks
+	techSkills
+	education
+	professionalExperiance
+	cetrtificates
+# Projects
+	userId
+	title
+	subTitle
+	description
+	date
+	type
+	tools & languages
+	link
+	
