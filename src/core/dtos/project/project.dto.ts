@@ -12,6 +12,9 @@ import {
 } from 'class-validator';
 
 export class CreateProjectDto {
+  @IsNotEmpty()
+  userId: any;
+
   @IsString()
   @IsNotEmpty()
   title: string;

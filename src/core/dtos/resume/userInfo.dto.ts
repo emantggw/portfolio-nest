@@ -1,6 +1,7 @@
 import {
   ArrayNotEmpty,
   IsArray,
+  IsDateString,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -34,4 +35,8 @@ export class UserInfoDto {
   @IsArray()
   @ArrayNotEmpty()
   phoneNumbers: string[];
+
+  @IsDateString()
+  @IsOptional()
+  birthYear: Date;
 }

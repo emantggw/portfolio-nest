@@ -18,6 +18,9 @@ import { UserSummaryDto } from './summary.dto';
 import { UserInfoDto } from './userInfo.dto';
 
 export class CreateResumeDto {
+  @IsNotEmpty()
+  userId: any
+
   @Type(() => UserInfoDto)
   @IsNotEmpty()
   userInfo: UserInfoDto;
