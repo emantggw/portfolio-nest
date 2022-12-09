@@ -13,7 +13,12 @@ export type ResumeDocument = Resume & Document;
 
 @Schema()
 export class Resume {
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+    unique: true,
+  })
   user: User;
 
   @Prop()

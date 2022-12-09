@@ -9,8 +9,8 @@ export class UserUseCases {
     private dataServices: IDataServices,
     private userFactoryService: UserFactoryService,
   ) {}
-  createAccount(createAccount: CreateUserDto) {
-    const user = this.userFactoryService.createNewUser(createAccount);
+  async createAccount(createAccount: CreateUserDto) {
+    const user = await this.userFactoryService.createNewUser(createAccount);
     return this.dataServices.users.create(user);
   }
 }
