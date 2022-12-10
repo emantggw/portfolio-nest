@@ -7,6 +7,7 @@ import {
   Query,
   UseGuards,
   Request,
+  Delete,
 } from '@nestjs/common';
 import {
   CreateResumeDto,
@@ -39,7 +40,7 @@ export class ResumeController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Put()
+  @Delete()
   deleteResume(@Query('resumeId') resumeId: any) {
     return this.resumeUsecases.deleteResume(resumeId);
   }

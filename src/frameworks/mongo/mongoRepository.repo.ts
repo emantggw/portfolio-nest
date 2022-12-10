@@ -18,9 +18,15 @@ export class MongoRepository<T> implements IRepository<T> {
     return this.repo.find().where(filter).exec();
   }
   update(id: any, item: T): Promise<T> {
+    if (!ObjectId.isValid(id)) {
+      return null;
+    }
     return this.repo.findByIdAndUpdate(id, item).exec();
   }
   delete(id: any): Promise<T> {
+    if (!ObjectId.isValid(id)) {
+      return null;
+    }
     return this.repo.findByIdAndDelete(id).exec();
   }
 }

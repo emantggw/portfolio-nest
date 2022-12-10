@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { IDataServices } from 'src/core/abstracts/idataServices.abstract';
 import {
   CreateProjectDto,
@@ -37,11 +41,20 @@ export class ProjectUseCases {
       oldProject,
       updateProjectDto,
     );
-    await this.dataServices.resumes.update(proejctId, updateProject);
-    return updateProject;
+    const status = await this.dataServices.resumes.update(
+      proejctId,
+      updateProject,
+    );
+    if (status) {
+      return updateProject;
+    }
+    return new ForbiddenException('Bad input data detected');
   }
   async deleteProject(projectId: any) {
-    await this.dataServices.projects.delete(projectId);
-    return true;
+    const status = await this.dataServices.projects.delete(projectId);
+    if (status) {
+      return true;
+    }
+    return new ForbiddenException('Bad input data detected');
   }
 }

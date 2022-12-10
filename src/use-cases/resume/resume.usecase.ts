@@ -47,11 +47,20 @@ export class ResumeUseCases {
       oldResume,
       updateResumeDto,
     );
-    await this.dataServices.resumes.update(resumeId, updatedResume);
-    return updatedResume;
+    const status = await this.dataServices.resumes.update(
+      resumeId,
+      updatedResume,
+    );
+    if (status) {
+      return updatedResume;
+    }
+    return new ForbiddenException('Bad input data detected');
   }
   async deleteResume(resumeId: any) {
-    await this.dataServices.resumes.delete(resumeId);
-    return true;
+    const status = await this.dataServices.resumes.delete(resumeId);
+    if (status) {
+      return true;
+    }
+    return new ForbiddenException('Bad input data detected');
   }
 }
