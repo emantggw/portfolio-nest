@@ -7,9 +7,9 @@ import { Resume } from 'src/core/entities/resume/resume.entity';
 
 @Injectable()
 export class ResumeFactoryService {
-  createResume(createResumeDto: CreateResumeDto): Resume {
+  createResume(userId: any, createResumeDto: CreateResumeDto): Resume {
     const resume = new Resume();
-    resume.user = createResumeDto.userId;
+    resume.user = userId;
     resume.userInfo = createResumeDto.userInfo;
     resume.certificates = createResumeDto.certificates;
     resume.educations = createResumeDto.educations;

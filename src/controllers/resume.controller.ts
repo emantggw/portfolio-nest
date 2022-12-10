@@ -6,6 +6,7 @@ import {
   Put,
   Query,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import {
   CreateResumeDto,
@@ -21,10 +22,11 @@ export class ResumeController {
   getUserResume(@Query('user') user: any) {
     return this.resumeUsecases.getUserResume(user);
   }
+
   @UseGuards(JwtAuthGuard)
   @Post()
-  createResume(@Body() createResumeDto: CreateResumeDto) {
-    return this.resumeUsecases.createResume(createResumeDto);
+  createResume(@Request() req, @Body() createResumeDto: CreateResumeDto) {
+    return this.resumeUsecases.createResume(req.userId, createResumeDto);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -34,5 +36,11 @@ export class ResumeController {
     @Query('resumeId') resumeId: any,
   ) {
     return this.resumeUsecases.updateResume(resumeId, updateResumeDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put()
+  deleteResume(@Query('resumeId') resumeId: any) {
+    return this.resumeUsecases.deleteResume(resumeId);
   }
 }

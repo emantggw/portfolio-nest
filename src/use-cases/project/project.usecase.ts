@@ -13,11 +13,15 @@ export class ProjectUseCases {
     private projectFactory: ProjectFactoryService,
     private dataServices: IDataServices,
   ) {}
-  getAllUserProjects(user: any) {
-    return this.dataServices.projects.find({ user: user });
+  async getAllUserProjects(userId: any) {
+    const isValidUser = await this.dataServices.users.findOne(userId);
+    if (!isValidUser) {
+      return new NotFoundException();
+    }
+    return this.dataServices.projects.find({ user: userId });
   }
-  async addProject(createProjectDto: CreateProjectDto) {
-    const project = this.projectFactory.createProject(createProjectDto);
+  async addProject(userId: any, createProjectDto: CreateProjectDto) {
+    const project = this.projectFactory.createProject(userId, createProjectDto);
     const isValidUser = await this.dataServices.users.findOne(project.user);
     if (!isValidUser) {
       return new NotFoundException();

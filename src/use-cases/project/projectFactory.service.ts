@@ -7,9 +7,9 @@ import { Project } from 'src/core/entities/project/project.entity';
 
 @Injectable()
 export class ProjectFactoryService {
-  createProject(createProjectDto: CreateProjectDto): Project {
+  createProject(userId: any, createProjectDto: CreateProjectDto): Project {
     const project = new Project();
-    project.user = createProjectDto.userId;
+    project.user = userId;
     project.title = createProjectDto.title;
     project.subTitle = createProjectDto.subTitle;
     project.type = createProjectDto.type;

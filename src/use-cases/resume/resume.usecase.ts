@@ -2,6 +2,7 @@ import {
   ForbiddenException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { IDataServices } from 'src/core/abstracts/idataServices.abstract';
 import {
@@ -17,11 +18,15 @@ export class ResumeUseCases {
     private resumeFactory: ResumeFactoryService,
     private dataServices: IDataServices,
   ) {}
-  getUserResume(user: any) {
-    return this.dataServices.resumes.find({ user: user });
+  async getUserResume(userId: any) {
+    const isValidUser = await this.dataServices.users.findOne(userId);
+    if (!isValidUser) {
+      return new NotFoundException();
+    }
+    return this.dataServices.resumes.find({ user: userId });
   }
-  async createResume(createResumeDto: CreateResumeDto) {
-    const resume = this.resumeFactory.createResume(createResumeDto);
+  async createResume(userId: any, createResumeDto: CreateResumeDto) {
+    const resume = this.resumeFactory.createResume(userId, createResumeDto);
     const isValidUser = await this.dataServices.users.findOne(resume.user);
     if (!isValidUser) {
       return new NotFoundException();
@@ -45,5 +50,8 @@ export class ResumeUseCases {
     await this.dataServices.resumes.update(resumeId, updatedResume);
     return updatedResume;
   }
-  deleteResume() {}
+  async deleteResume(resumeId: any) {
+    await this.dataServices.resumes.delete(resumeId);
+    return true;
+  }
 }

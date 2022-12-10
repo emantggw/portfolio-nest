@@ -1,20 +1,14 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { Type } from 'class-transformer';
 import {
-  ArrayMinSize,
   ArrayNotEmpty,
   IsArray,
   IsDateString,
   IsNotEmpty,
   IsOptional,
   IsString,
-  ValidateNested,
 } from 'class-validator';
 
 export class CreateProjectDto {
-  @IsNotEmpty()
-  userId: any;
-
   @IsString()
   @IsNotEmpty()
   title: string;

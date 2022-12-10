@@ -21,14 +21,14 @@ export class ProjectController {
   constructor(private projectUsecases: ProjectUseCases) {}
 
   @Get()
-  getAllProjects(@Request() req) {
-    return this.projectUsecases.getAllUserProjects(req.query.user);
+  getAllProjects(@Query('user') user: string) {
+    return this.projectUsecases.getAllUserProjects(user);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  addProject(@Body() createProjectDto: CreateProjectDto) {
-    return this.projectUsecases.addProject(createProjectDto);
+  addProject(@Body() createProjectDto: CreateProjectDto, @Request() req) {
+    return this.projectUsecases.addProject(req.user.userId, createProjectDto);
   }
 
   @UseGuards(JwtAuthGuard)
