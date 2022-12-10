@@ -3,10 +3,15 @@ import { IAuthServices } from 'src/core/abstracts/iauthServices.abstract';
 import { IDataServices } from 'src/core/abstracts/idataServices.abstract';
 
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { User } from 'src/core/entities/user/user.entity';
 
 @Injectable()
 export class AuthService implements IAuthServices {
-  constructor(private dataServices: IDataServices) {}
+  constructor(
+    private dataServices: IDataServices,
+    private jwtService: JwtService,
+  ) {}
   async validate(username: string, password: string): Promise<any> {
     const users = await this.dataServices.users.find({ email: username });
 
@@ -17,5 +22,12 @@ export class AuthService implements IAuthServices {
       }
     }
     return null;
+  }
+
+  async login(userId: string) {
+    const payload = { userId: userId };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 }

@@ -1,3 +1,4 @@
 export abstract class IAuthServices {
-  abstract validate(username: string, password: string): Promise<any>;
+  abstract validate(email: string, password: string): Promise<any>;
+  abstract login(userId: string): Promise<any>;
 }
