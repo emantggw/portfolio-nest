@@ -27,7 +27,7 @@ export class ResumeController {
   @UseGuards(JwtAuthGuard)
   @Post()
   createResume(@Request() req, @Body() createResumeDto: CreateResumeDto) {
-    return this.resumeUsecases.createResume(req.userId, createResumeDto);
+    return this.resumeUsecases.createResume(req.user.userId, createResumeDto);
   }
 
   @UseGuards(JwtAuthGuard)
