@@ -34,7 +34,7 @@ export class ResumeUseCases {
     const isResumeAlreadyCreatedByUser = await this.dataServices.resumes.find({
       user: resume.user,
     });
-    if (isResumeAlreadyCreatedByUser) {
+    if (isResumeAlreadyCreatedByUser.length > 0) {
       return new ForbiddenException(
         "The resume is already created, you can't create mutliple resume per user.",
       );
