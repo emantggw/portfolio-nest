@@ -28,6 +28,7 @@ export class AuthService implements IAuthServices {
     const payload = { userId: userId };
     return {
       access_token: this.jwtService.sign(payload),
+      user: await this.dataServices.users.findOne(userId),
     };
   }
 }
